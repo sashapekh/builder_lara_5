@@ -26,7 +26,6 @@ class BuilderServiceProvider extends ServiceProvider
         $router->middleware('auth.user', \Vis\Builder\AuthenticateFrontend::class);
         $router->middleware('permission', \Vis\Builder\Permission::class);
 
-        require __DIR__.'/../vendor/autoload.php';
         require __DIR__.'/Http/helpers.php';
         require __DIR__.'/Http/view_composers.php';
 
