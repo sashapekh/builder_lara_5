@@ -1,0 +1,313 @@
+/* Admin Template Fixes */
+div.login-info img.online {
+    border-left: none;
+}
+
+/* Modal */
+div.modal div.tb-modal-fullscreen {
+    width: 100%;
+    margin: 0;
+    height: 100%;
+}
+div.modal div.tb-modal-fullscreen div.modal-content {
+    height: 100%;
+}
+
+/* sorting icon */
+.tb-table table.table-bordered.dataTable {
+    margin: 0 !important;
+    border-collapse: collapse !important;
+}
+
+
+
+.table>tbody>tr>td,
+.table>thead>tr>th {
+    vertical-align: middle;
+    text-align: center;
+}
+
+.tb-table thead tr th.e-insert_button-cell {
+    padding-right: 10px;
+}
+
+div.smoke_lol {
+    display: none;
+    width: 100%;
+    height: 100%;
+    background-color: #999;
+    z-index: 12;
+    position: absolute;
+    opacity: 0.6;
+}
+div.smoke_lol i {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    margin-top: -23px;
+    margin-left: -23px;
+}
+button.tb-search-btn {
+    width: 100%;
+}
+div.tb-pagination {
+    margin: 0;
+    padding-bottom: 0;
+}
+div.tb-pagination ul.pagination {
+    float: right;
+}
+
+/* Upload image */
+div.tb-uploaded-image-container {
+    background-color: #ddd;
+    cursor: pointer;
+}
+div.tb-uploaded-image-container ul {
+    min-height: 80px;
+    list-style-type: none;
+}
+div.tb-uploaded-image-container ul:empty {
+    height: 0px;
+}
+div.tb-uploaded-image-container ul li {
+    display: inline-block;
+    position: relative;
+}
+div.tb-uploaded-image-container ul li img {
+    height: 80px;
+    margin-right: 5px;
+}
+
+div.tb-uploaded-image-container div.tb-btn-delete-wrap {
+    position: absolute;
+    right: 8px;
+    top: 2px;
+}
+div.tb-uploaded-image-container button.tb-btn-image-delete {
+    position: static;
+    width: 22px;
+    height: 22px;
+}
+div.tb-uploaded-image-container button.tb-btn-image-delete i {
+    right: 5px;
+    top: 4px;
+    position: absolute;
+    font-size: 15px;
+}
+
+
+.table-builder .widget-body {
+    overflow-x: visible;
+}
+
+
+/* Modal */
+div#modal_wrapper div.modal,
+div#modal_form {
+    z-index: 99999;
+}
+
+
+/* Pagination */
+div.tb-pagination {
+    margin: 10px !important;
+}
+div.tb-pagination-info {
+    font-size: 13px;
+    font-weight: 700;
+    color: #969696;
+}
+
+/* Summernote fix */
+/* fock reset */
+.note-editable h1 {
+    font-size: 26px;
+}
+.note-editable h2 {
+    font-size: 23px;
+}
+.note-editable ul {
+   list-style-type: disc;
+   list-style-position: inside;
+}
+.note-editable ol {
+   list-style-type: decimal;
+   list-style-position: inside;
+}
+.note-editable ul ul,
+.note-editable ol ul {
+   list-style-type: circle;
+   list-style-position: inside;
+   margin-left: 15px;
+}
+.note-editable ol ol,
+.note-editable ul ol {
+   list-style-type: lower-latin;
+   list-style-position: inside;
+   margin-left: 15px;
+}
+/* // end fock reset */
+
+.tooltip {
+    z-index: 99999;
+}
+.tooltip .tooltip-inner {
+    border-radius: 4px;
+}
+
+.tb-modal div.note-link-dialog input[type="checkbox"] {
+    position: inherit;
+}
+.tb-modal div.note-image-dialog,
+.tb-modal div.note-link-dialog,
+.tb-modal div.note-video-dialog,
+.tb-modal div.note-help-dialog {
+    position: absolute;
+}
+.tb-modal div.note-image-dialog .modal-content,
+.tb-modal div.note-link-dialog .modal-content,
+.tb-modal div.note-video-dialog .modal-content {
+    padding: 12px;
+}
+.tb-modal div.note-image-dialog input.note-image-input,
+.tb-modal div.note-link-dialog input.note-image-input,
+.tb-modal div.note-video-dialog input.note-image-input {
+    padding: 4px;
+}
+.tb-modal div.note-image-dialog .modal-header,
+.tb-modal div.note-link-dialog .modal-header,
+.tb-modal div.note-video-dialog .modal-header {
+    padding: 6px;
+}
+.tb-modal div.note-image-dialog .modal-footer,
+.tb-modal div.note-link-dialog .modal-footer,
+.tb-modal div.note-video-dialog .modal-footer {
+    padding: 8px 0;
+}
+.tb-modal div.note-image-dialog .modal-footer button,
+.tb-modal div.note-link-dialog .modal-footer button,
+.tb-modal div.note-video-dialog .modal-footer button {
+    padding: 3px;
+}
+.tb-modal div.note-image-dialog form.note-modal-form,
+.tb-modal div.note-link-dialog form.note-modal-form ,
+.tb-modal div.note-video-dialog form.note-modal-form {
+    padding: 6px;
+}
+
+/* Validation errors */
+form.smart-form em.invalid {
+    margin-top: 6px;
+    padding: 0 1px;
+    font-size: 11px;
+    line-height: 15px;
+    color: #999;
+}
+
+/* Subactions */
+div.dropdown.subactions {
+    position: absolute;
+    right: 0;
+    top: 0;
+    background-color: #eee;
+    padding: 5px;
+    border-color: #bdbdbd;
+    border-width: 1px;
+    border-style: solid;
+}
+div.dropdown.subactions a.dropdown-toggle{
+    color: #666;
+}
+div.dropdown.subactions a.dropdown-toggle:hover{
+    color: #333;
+}
+div.dropdown.subactions .dropdown-menu {
+    left: auto;
+    right: 0;
+}
+
+
+/* Form elements */
+.input-group-addon.form-input-icon {
+    width: 18px;
+    height: 18px;
+    right: 0;
+    top: 0;
+    position: absolute;
+}
+.input-group-addon.form-input-icon .fa {
+    padding: 2px;
+}
+
+.input-group-addon.form-input-icon.form-input-filter-icon {
+    width: 20px;
+    height: 20px;
+    right: -2px;
+}
+
+/* Editable popover */
+form.smart-form div.popover-content {
+    padding: 9px 14px;
+}
+div.editable-image span {
+    width: 40px;
+    display: inline-block;
+}
+div.editable-input input.input-editable {
+    padding: 2px;
+}
+div.editable-input div.editable-image {
+    margin-bottom: 4px;
+}
+div.editable-buttons .editable-buttons-bottom {
+    text-align: right;
+}
+div.tb-uploaded-image-container div.editable-container{
+    /*width: 235px;*/
+}
+
+
+/* Multi checkbox select */
+.tb-table label.multi-checkbox {
+    padding: 0 !important;
+    min-height: 18px !important;
+    min-width: 5px !important;
+}
+
+/* elFinder */
+.elfinder-quicklook {
+    z-index: 99999 !important;
+}
+.elfinder .ui-dialog .ui-dialog-titlebar-close {
+    margin-top: -10px;
+    margin-right: 0px;
+}
+
+/* Redactor */
+div.redactor-dropdown {
+    z-index: 110031 !important;
+}
+
+/* form tabs anchor colors */
+div.table-page #edit_form .nav-tabs li a,
+div.table-page #create_form .nav-tabs li a {
+    color: #333 !important;
+}
+.content_revisions{
+    padding: 10px;
+}
+.revisions{
+    width: 100%;
+}
+.revisions td{
+    padding: 5px;
+}
+.revisions thead td{
+    font-weight: bold;
+}
+.value_old_new{
+    max-height: 200px;
+    overflow: auto;
+    max-width: 300px;
+}

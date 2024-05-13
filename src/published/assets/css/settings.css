@@ -1,0 +1,8 @@
+.settings .row.settings_row{
+    margin: 0;
+}
+.settings .btn-group{
+    float: right;
+    margin: 2px 5px 0 0;
+}
+

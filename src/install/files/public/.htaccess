@@ -1,0 +1,77 @@
+ RewriteCond %{THE_REQUEST} ^.+?\ [^?]+\.php|.php3|.phtml|.shtml|.php5|.php4|.phpt[?\ ]
+ RewriteCond %{THE_REQUEST} !index.php
+ RewriteRule \.php|.php3|.phtml|.shtml|.php5|.php4|.phpt$ - [F]
+
+<IfModule mod_deflate.c>
+    AddOutputFilterByType DEFLATE text/html text/plain text/xml application/javascript application/xml application/x-font-woff application/x-font-ttf application/xhtml+xml text/javascript text/css application/x-javascript
+    BrowserMatch ^Mozilla/4 gzip-only-text/html
+    BrowserMatch ^Mozilla/4.0[678] no-gzip
+    BrowserMatch bMSIE !no-gzip !gzip-only-text/html
+    <ifmodule mod_gzip.c>
+    mod_gzip_on Yes
+    mod_gzip_item_include file \.js$
+    mod_gzip_item_include file \.css$ </ifmodule>
+</IfModule>
+
+FileETag MTime Size
+<ifmodule mod_expires.c>
+    <filesmatch ".(jpg|JPG|jpeg|gif|png|ico|css|js|svg|ttf|woff|webp)$">
+    ExpiresActive on
+    ExpiresDefault "access plus 1 month"
+    </filesmatch>
+</ifmodule>
+
+<ifModule mod_headers.c>
+    <filesMatch "\\.(ico|pdf|flv|jpg|jpeg|png|gif|swf|svg|ttf|woff|webp)$">
+    Header set Cache-Control "max-age=2592000, public"
+    </filesMatch>
+    <filesMatch "\\.(css)$">
+    Header set Cache-Control "max-age=604800, public"
+    </filesMatch>
+    <filesMatch "\\.(js)$">
+    Header set Cache-Control "max-age=616000, private"
+    </filesMatch>
+    <filesMatch "\\.(xml|txt)$">
+    Header set Cache-Control "max-age=216000, public, must-revalidate"
+    </filesMatch>
+    <filesMatch "\\.(html|htm|php)$">
+    Header set Cache-Control "max-age=1, private, must-revalidate"
+    </filesMatch>
+    <FilesMatch "\.(ttf|otf|eot|svg)$" >
+     SetOutputFilter DEFLATE
+    </FilesMatch>
+</ifModule>
+
+<IfModule mod_mime.c>
+  AddType image/webp .webp
+</IfModule>
+
+<IfModule mod_rewrite.c>
+
+    RewriteCond %{HTTP_ACCEPT} image/webp
+    RewriteCond %{REQUEST_FILENAME} ^(.+)\.(jpe?g|png)$
+    RewriteCond %1\.webp -f
+    RewriteRule ^(.+)\.(jpe?g|png)$ $1.webp [T=image/webp,E=accept:1]
+
+    <IfModule mod_negotiation.c>
+        Options -MultiViews
+    </IfModule>
+
+    RewriteEngine On
+
+    RewriteCond %{THE_REQUEST} ^.*/index\.php
+    RewriteRule ^(.*)index.php$ /$1 [R=301,L]
+
+    # Redirect Trailing Slashes If Not A Folder...
+    RewriteCond %{REQUEST_FILENAME} !-d
+    RewriteRule ^(.*)/$ /$1 [L,R=301]
+
+    # Handle Front Controller...
+    RewriteCond %{REQUEST_FILENAME} !-d
+    RewriteCond %{REQUEST_FILENAME} !-f
+    RewriteRule ^ index.php [L]
+
+    # Handle Authorization Header
+    RewriteCond %{HTTP:Authorization} .
+    RewriteRule .* - [E=HTTP_AUTHORIZATION:%{HTTP:Authorization}]
+</IfModule>

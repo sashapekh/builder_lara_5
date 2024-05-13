@@ -1,0 +1,44 @@
+{
+    "name": "sashapekh/builder_lara_5",
+    "description": "Builder cms",
+    "license": "proprietary",
+    "authors": [
+        {
+            "name": "crm_builder",
+            "email": "sashapekh@gmail.com"
+        }
+    ],
+    "require": {
+        "cartalyst/sentinel" : "2.0.*",
+        "devfactory/minify": "1.0.*",
+        "baum/baum": "~1.1",
+        "venturecraft/revisionable": "1.*",
+        "radic/blade-extensions": "~6.2",
+        "yandex/translate-api": "1.5.x",
+        "intervention/image": "2.*",
+        "intervention/imagecache": "2.*",
+        "mcamara/laravel-localization": "1.2.*",
+        "predis/predis" : "~1.0",
+        "barryvdh/laravel-ide-helper": "2.*",
+        "maatwebsite/excel": "~2.1.0"
+    },
+    "autoload": {
+        "classmap": [
+            "src/Models",
+            "src/libs",
+            "src/Http/Controllers",
+            "src/Http/Facades",
+            "src/Http/Fields",
+            "src/Http/Handlers",
+            "src/Http/Helpers",
+            "src/Http/Traits",
+            "src/Http/Middleware",
+            "src/Console",
+            "src/Migrations",
+            "src/Seeds"
+        ],
+        "psr-4": {
+            "Vis\\Builder\\": "src/"
+        }
+    }
+}

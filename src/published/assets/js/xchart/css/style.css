@@ -1,0 +1,68 @@
+
+
+#placeholder {
+	width: 940px;
+	border: 1px solid #CDCDCD;
+	padding: 20px;
+	border-radius: 3px;
+	background-color: white;
+	margin-bottom: 15px;
+	position: relative;
+	box-shadow: 1px 1px 2px #EEE, 0 -3px 5px #F3F3F3 inset;
+}
+
+.content_statistic {
+	margin: 0px auto;
+	padding: 10px 0;
+	position: relative;
+	width: 940px;
+}
+
+#chart{
+	width: 920px;
+	height: 500px;
+}
+
+.ex-tooltip{
+	position: absolute;
+	background: #EEE;
+	border-radius: 3px;
+	border-radius: 3px;
+	padding: 5px;
+	box-shadow: 0 1px 3px black;
+	box-shadow: 0 1px 3px black;
+	border-collapse: separate;
+	display: none;
+    z-index: 1000000;
+}
+.daterangepicker{
+    z-index: 1000000;
+}
+
+.daterangepicker .ranges label {
+    color: #333;
+    font-size: 11px;
+    margin-bottom: 2px;
+    text-shadow: 1px 1px 0 #fff;
+    text-transform: uppercase;
+    display: block;
+}
+.daterangepicker .ranges input {
+    border-radius: 4px;
+    color: #555;
+    display: inline-block;
+    font-size: 14px;
+    height: 22px;
+    line-height: 20px;
+    margin-bottom: 10px;
+    padding: 4px 6px;
+    vertical-align: middle;
+    width: 72px;
+    border: 1px solid #ccc;
+    box-shadow: 0 1px 1px rgba(0, 0, 0, 0.075) inset;
+    transition: border 0.2s linear 0s, box-shadow 0.2s linear 0s;
+}
+.daterangepicker .ranges button{
+    font-size: 11px;
+}
+

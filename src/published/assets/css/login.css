@@ -1,0 +1,86 @@
+html{
+    height: 100%;
+    margin: 0;
+    overflow-x: hidden !important;
+    padding: 0;
+}
+#login #main {
+    background: #667;
+    margin: 0;
+    height: 100%;
+    display: block;
+    min-height: 100%;
+}
+body#login {
+    padding: 0 !important;
+}
+div.b-login {
+    background: #fff;
+    opacity: 0.9;
+    position: fixed;
+    height: 100%;
+    right: 0;
+    top: 0;
+    min-height: 480px;
+}
+div#main {
+    min-height: 100%;
+    background-size: cover !important;
+}
+div#content {
+    margin-right: 0;
+    padding: 0;
+}
+#login #header #logo {
+    font-size: 34px;
+    font-family: "Open Sans",Arial,Helvetica,Sans-Serif;
+    line-height: 30px;
+    font-weight: 300;
+}
+.client-form header {
+    border-bottom-style: solid;
+    background: #fff;
+}
+.well {
+    border: none;
+    box-shadow: none;
+    margin-top: 80px;
+}
+.smart-form footer {
+    background: #fff;
+}
+form.smart-form{
+    padding: 0 15px;
+}
+.b-top {
+    position: absolute;
+    z-index: 9;
+    top: 25px;
+    right: 0px;
+    width: 100%;
+    padding: 0 40px;
+    line-height: 12px;
+}
+.b-bottom {
+    position: absolute;
+    z-index: 9;
+    right: 0px;
+    bottom: 10px;
+    z-index: 6;
+    width: 100%;
+    padding: 0 40px;
+    line-height: 12px;
+}
+.smart-form .btn.submit_button {
+    float: left;
+    margin-left: 0;
+}
+
+@media(min-width:1200px){
+    .col-lg-4 {
+        width: 29%;
+    }
+    .well {
+        margin-top: 130px;
+    }
+}
