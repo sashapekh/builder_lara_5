@@ -2,7 +2,7 @@
 
 Подкючаем 
 ```json
- composer require "vis/builder_lara_5":"1.*"
+ composer require sashapekh/builder_lara_5
 ```
 Добавляем в файле app.php в блок providers
 ```php
