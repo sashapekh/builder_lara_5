@@ -2,7 +2,7 @@
 
 var ForeignDefinition  = {
 
-    createDefinition  : function (content, table, attributes, foreign_field_id) {
+    createDefinition  : function (content, table, attributes) {
 
         var attributesJson = jQuery.parseJSON(attributes);
         var definition = attributesJson.definition;
@@ -52,6 +52,64 @@ var ForeignDefinition  = {
         ForeignDefinition.sendRequestForShowDefinition(content, table, definition, foreign_field_id, foreign_field, attributes);
     },
 
+    createMorphDefinition  : function (content, table, attributes) {
+
+        console.log('createMorphDefinition', {
+            content: content,
+            table: table,
+            attributes: attributes,
+        })
+
+
+        var attributesJson = JSON.parse(attributes);
+        const modelType = attributesJson.askedModel;
+        const modelId = attributesJson.askedId;
+        var definition = attributesJson.definition;
+        var foreign_field = attributesJson.foreign_field;
+
+
+        if (foreign_field_id == undefined) {
+            var loader = content.parent().find('.loader_create_definition');
+            loader.removeClass('hide').text('Сохранение данных..');
+
+            content.parents('form').submit();
+
+            TableBuilder.handlerCreate = function (url, idCreated) {
+
+                jQuery.ajax({
+                    type: "POST",
+                    url: url,
+                    data: {
+                        'id' : idCreated,
+                        'query_type' : 'show_edit_form'
+                    },
+                    dataType: 'json',
+                    success: function (data) {
+                        $('.table_form_create').html(data.html);
+                        $('.table_form_create #modal_form_edit').addClass('in').show();
+
+                        content = $('.table_form_create #' + content.attr('id'))
+                        TableBuilder.initFroalaEditor();
+                        TableBuilder.refreshMask();
+                        TableBuilder.handleActionSelect();
+                        loader.addClass('hide');
+
+
+                        ForeignDefinition.sendRequestForShowDefinition(content, table, definition, idCreated, foreign_field, attributes);
+                    },
+                    error: function (xhr, ajaxOptions, thrownError) {
+                        var errorResult = jQuery.parseJSON(xhr.responseText);
+
+                        TableBuilder.showErrorNotification(errorResult.message);
+                    }
+                });
+            }
+
+            return ;
+        }
+
+        ForeignDefinition.sendRequestForShowDefinition(content, table, definition, foreign_field_id, foreign_field, attributes);
+    },
     sendRequestForShowDefinition : function (content, table, definition, foreign_field_id, foreign_field, attributes) {
         var loader = content.parent().find('.loader_create_definition');
         loader.removeClass('hide').text('Загрузка окна...');
@@ -92,6 +150,59 @@ var ForeignDefinition  = {
                 'id' : foreignFieldId,
                 'paramsJson' : foreignAttributes,
                 'query_type' : 'get_html_foreign_definition'
+            },
+            dataType: 'json',
+            success: function (response) {
+                if (response.html) {
+                    $('.definition_' + attributesJson.name).html(response.html);
+
+                    if (attributesJson.sortable != undefined) {
+                        $('.definition_' + attributesJson.name + ' tbody').sortable({
+                            handle: ".handle",
+                            update: function ( event, ui ) {
+                                ForeignDefinition.changePosition($(this), foreignAttributes);
+                            }
+                        });
+                    } else {
+                        $('.definition_' + attributesJson.name + ' .col_sort').hide();
+                    }
+
+                    if (attributesJson.only_once != undefined) {
+                        if (response.count_records) {
+                            $('.definition_' + attributesJson.name).parent().find('.btn-success').hide();
+                        } else {
+                            $('.definition_' + attributesJson.name).parent().find('.btn-success').show();
+                        }
+                    }
+                }
+            },
+            error: function (xhr, ajaxOptions, thrownError) {
+                var errorResult = jQuery.parseJSON(xhr.responseText);
+
+                TableBuilder.showErrorNotification(errorResult.message);
+            }
+        });
+
+    },
+
+    callbackMorphDefinition : function (foreignFieldId, foreignAttributes) {
+
+        var attributesJson = JSON.parse(foreignAttributes);
+        // TableBuilder.showSuccessNotification(phrase['Сохранено']);
+        console.log('attributesJson', attributesJson);
+
+        TableBuilder.doClosePopup(attributesJson.table);
+
+        $('.definition_' + attributesJson.name + " .loader_definition").show();
+
+        jQuery.ajax({
+            type: "POST",
+            url: "/admin/handle/" + attributesJson.definition,
+            data: {
+                'id' : foreignFieldId,
+                'relationName': attributesJson.relationName,
+                'paramsJson' : foreignAttributes,
+                'query_type' : 'get_html_morph_definition'
             },
             dataType: 'json',
             success: function (response) {

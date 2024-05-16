@@ -2,11 +2,9 @@
 
 namespace Vis\Builder;
 
+
 use Illuminate\Routing\Controller;
-use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Request;
-use Illuminate\Support\Facades\View;
 use Vis\Builder\Facades\Jarboe as JarboeFacade;
 
 /**
@@ -77,7 +75,7 @@ class TableAdminController extends Controller
     }
 
     /**
-     * @param string $nameTree
+     * @param  string  $nameTree
      *
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
@@ -104,7 +102,7 @@ class TableAdminController extends Controller
     }
 
     /**
-     * @param string $page
+     * @param  string  $page
      *
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
@@ -159,9 +157,9 @@ class TableAdminController extends Controller
     }
 
     /**
+     * @return string
      * @throws \Throwable
      *
-     * @return string
      */
     public function doChangeRelationField()
     {
@@ -220,7 +218,7 @@ class TableAdminController extends Controller
         $params = (array) json_decode(request('paramsJson'));
 
         $record = (array) DB::table($params['mtm_external_table'])
-                            ->where($params['mtm_external_value_field'], $title)->first();
+            ->where($params['mtm_external_value_field'], $title)->first();
 
         if ($record) {
             return $record['id'];

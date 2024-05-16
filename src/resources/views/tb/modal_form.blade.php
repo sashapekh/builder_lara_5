@@ -1,4 +1,5 @@
 <!-- Modal -->
+
 <div class="modal fade modal_form_{{$def['db']['table']}}" id="modal_form" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" data-backdrop="static">
     <div class="modal-dialog" style="width: 920px" data-width="920px">
         <div class="form-preloader smoke_lol"><i class="fa fa-gear fa-4x fa-spin"></i></div>

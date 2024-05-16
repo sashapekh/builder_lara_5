@@ -69,5 +69,6 @@
         @include('admin::partials.popup_cropp')
 
         <script src="/packages/vis/builder/js/cropper_model.js"></script>
+        <script src="/packages/vis/builder/foreign_definition.js"></script>
     </body>
 </html>

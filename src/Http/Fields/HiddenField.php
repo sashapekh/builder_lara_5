@@ -37,11 +37,11 @@ class HiddenField extends AbstractField
     }
 
     /**
-     * @param array $row
-     *
-     * @throws \Throwable
+     * @param  array  $row
      *
      * @return string
+     * @throws \Throwable
+     *
      */
     public function getEditInput($row = [])
     {
@@ -52,8 +52,14 @@ class HiddenField extends AbstractField
             }
         }
 
+
         $table = view('admin::tb.input_hidden');
-        $table->value = $this->getValue($row);
+
+
+        $table->value = $this->getAttribute('request_value', null)
+            ? request($this->getAttribute('request_value'))
+            : $this->getValue($row);
+
         $table->name = $this->getFieldName();
 
         return $table->render();

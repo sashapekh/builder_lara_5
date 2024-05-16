@@ -2,6 +2,8 @@
 
 namespace Vis\Builder\Handlers;
 
+use http\Exception\InvalidArgumentException;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Session;
 use Vis\Builder\Helpers\AnnotationHelper;
 use Vis\Builder\JarboeController;
@@ -31,7 +33,7 @@ class ViewHandler
     /**
      * ViewHandler constructor.
      *
-     * @param JarboeController $controller
+     * @param  JarboeController  $controller
      */
     public function __construct(JarboeController $controller)
     {
@@ -44,21 +46,21 @@ class ViewHandler
     /**
      * @param $id
      *
+     * @return string
      * @throws \Throwable
      *
-     * @return string
      */
     public function showEditFormPage($id)
     {
         if ($id === false) {
-            if (! $this->controller->actions->isAllowed('insert')) {
+            if (!$this->controller->actions->isAllowed('insert')) {
                 throw new \RuntimeException('Insert action is not permitted');
             }
         } else {
-            if (! $this->controller->actions->isAllowed('update')) {
+            if (!$this->controller->actions->isAllowed('update')) {
                 throw new \RuntimeException('Update action is not permitted');
             }
-            if (! $this->controller->isAllowedID($id)) {
+            if (!$this->controller->isAllowedID($id)) {
                 throw new \RuntimeException('Not allowed to edit row #'.$id);
             }
         }
@@ -99,7 +101,7 @@ class ViewHandler
             'admin::table_page_'.$templatePostfix,
             compact('form', 'js', 'definition', 'id')
         )
-                ->render();
+            ->render();
     }
 
     /**
@@ -125,7 +127,7 @@ class ViewHandler
             }
         }
 
-        if (! $table->rows) {
+        if (!$table->rows) {
             $table->rows = $this->controller->query->getRows();
         }
 
@@ -161,9 +163,9 @@ class ViewHandler
     }
 
     /**
+     * @return array
      * @throws \Throwable
      *
-     * @return array
      */
     public function showHtmlForeignDefinition()
     {
@@ -181,8 +183,8 @@ class ViewHandler
             $result = $modelThis::where($params['foreign_field'], request('id'));
 
             $result = isset($params['sortable'])
-                    ? $result->orderBy($params['sortable'], 'asc')->orderBy('id', 'desc')
-                    : $result->orderBy('id', 'desc');
+                ? $result->orderBy($params['sortable'], 'asc')->orderBy('id', 'desc')
+                : $result->orderBy('id', 'desc');
 
             $this->filterDefinition($fileDefinition, $result);
 
@@ -193,11 +195,53 @@ class ViewHandler
         $attributes = request('paramsJson');
 
         return [
-            'html' => view(
+            'html'          => view(
                 'admin::tb.input_definition_table_data',
                 compact('arrayDefinitionFields', 'result', 'idUpdate', 'attributes')
             )
-                        ->render(),
+                ->render(),
+            'count_records' => count($result),
+        ];
+    }
+
+    public function showHtmlMorphDefinition()
+    {
+        $params = (array) json_decode(request('paramsJson'));
+        $askedModel = $params['askedModel'] ?? null;
+        $relation = $params['relationName'] ?? null;
+        $modelId = $params['model_id'] ?? null;
+
+        $result = [];
+        $fileDefinition = 'builder.tb-definitions.'.$params['definition'];
+
+        foreach ($params['show'] as $field) {
+            $arrayDefinitionFields[$field] =
+                config($fileDefinition.'.fields.'.$field);
+        }
+
+        if ($askedModel && $modelId) {
+            $modelThis = config($fileDefinition.'.options.model');
+            $result = $modelThis::query()
+                ->where('model_id', $modelId)
+                ->where('model_type', $askedModel);
+            $result = isset($params['sortable'])
+                ? $result->orderBy($params['sortable'], 'asc')->orderBy('id', 'desc')
+                : $result->orderBy('id', 'desc');
+
+            $this->filterDefinition($fileDefinition, $result);
+
+            $result = $result->get();
+        }
+
+        $idUpdate = request('id') ?: '';
+        $attributes = request('paramsJson');
+
+        return [
+            'html'          => view(
+                'admin::tb.input_definition_table_data',
+                compact('arrayDefinitionFields', 'result', 'idUpdate', 'attributes')
+            )
+                ->render(),
             'count_records' => count($result),
         ];
     }
@@ -217,9 +261,9 @@ class ViewHandler
     }
 
     /**
+     * @return array
      * @throws \Throwable
      *
-     * @return array
      */
     public function deleteForeignDefinition()
     {
@@ -242,7 +286,7 @@ class ViewHandler
 
         $params = (array) json_decode(request('paramsJson'));
 
-        if (! isset($params['sortable'])) {
+        if (!isset($params['sortable'])) {
             throw new \RuntimeException('Не определено поле для сортировки');
         }
         $idsPositionUpdate = (array) json_decode(request('idsPosition'));
@@ -261,12 +305,12 @@ class ViewHandler
     }
 
     /**
-     * @param bool $id
-     * @param bool $isTree
-     *
-     * @throws \Throwable
+     * @param  bool  $id
+     * @param  bool  $isTree
      *
      * @return string
+     * @throws \Throwable
+     *
      */
     public function showEditForm($id = false, $isTree = false)
     {
@@ -288,12 +332,12 @@ class ViewHandler
     }
 
     /**
-     * @param bool $id
-     * @param bool $isTree
-     *
-     * @throws \Throwable
+     * @param  bool  $id
+     * @param  bool  $isTree
      *
      * @return string
+     * @throws \Throwable
+     *
      */
     public function showRevisionForm($id = false, $isTree = false)
     {
@@ -310,12 +354,12 @@ class ViewHandler
     }
 
     /**
-     * @param bool $id
-     * @param bool $isTree
-     *
-     * @throws \Throwable
+     * @param  bool  $id
+     * @param  bool  $isTree
      *
      * @return string
+     * @throws \Throwable
+     *
      */
     public function showViewsStatistic($id = false, $isTree = false)
     {
@@ -333,9 +377,9 @@ class ViewHandler
     /**
      * @param $data
      *
+     * @return string
      * @throws \Throwable
      *
-     * @return string
      */
     public function getRowHtml($data)
     {
@@ -353,9 +397,9 @@ class ViewHandler
     /**
      * @param $row
      *
+     * @return string
      * @throws \Throwable
      *
-     * @return string
      */
     public function fetchActions($row)
     {

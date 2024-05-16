@@ -119,7 +119,8 @@ class RequestHandler
 
             case 'get_html_foreign_definition':
                 return $this->handleShowHtmlForeignDefinition();
-
+            case 'get_html_morph_definition':
+                return $this->handleShowHtmlMorphDefinition();
             case 'delete_foreign_row':
                 return $this->handleDeleteForeignDefinition();
 
@@ -567,6 +568,10 @@ class RequestHandler
         return $this->controller->view->showHtmlForeignDefinition();
     }
 
+    protected function handleShowHtmlMorphDefinition()
+    {
+        return $this->controller->view->showHtmlMorphDefinition();
+    }
     /**
      * @return array
      */
