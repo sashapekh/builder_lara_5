@@ -148,6 +148,10 @@ class TableAdminController extends Controller
         return JarboeFacade::table($options);
     }
 
+    private function handleMorph()
+    {
+
+    }
     /**
      * @param $table
      */

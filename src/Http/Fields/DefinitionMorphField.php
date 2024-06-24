@@ -79,10 +79,11 @@ class DefinitionMorphField extends DefinitionField
         $input->nameDefinition = $this->getAttribute('definition');
         $input->name = $this->getFieldName();
         $input->table = $this->attributes['table'];
+        $input->foreignField = $this->getAttribute('foreign_field');
 
         $input->attributes = json_encode(array_merge($this->attributes, [
             'relationName' => $this->getAttribute('relationName', null),
-            'askedModel'   => $this->getMorphClass(),
+            'model_type'   => $this->getMorphClass(),
             'model_id'     => $this->getClassId()
         ]));
 

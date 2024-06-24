@@ -18,6 +18,7 @@
             {!! $field->getClientsideValidatorMessages() !!}
             @endforeach
         },
+
         submitHandler: function(form) {
             TableBuilder.doCreate("#create_form_{{$def['db']['table']}}", '{{request('foreign_field_id')}}', '{!! request('foreign_attributes') !!}');
         }

@@ -206,10 +206,10 @@ class ViewHandler
 
     public function showHtmlMorphDefinition()
     {
-        $params = (array) json_decode(request('paramsJson'));
-        $askedModel = $params['askedModel'] ?? null;
-        $relation = $params['relationName'] ?? null;
+        $params = json_decode(request('paramsJson'), true, 512, JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE);
+
         $modelId = $params['model_id'] ?? null;
+        $modelType = $params['model_type'] ?? null;
 
         $result = [];
         $fileDefinition = 'builder.tb-definitions.'.$params['definition'];
@@ -219,11 +219,11 @@ class ViewHandler
                 config($fileDefinition.'.fields.'.$field);
         }
 
-        if ($askedModel && $modelId) {
+        if ($modelType && $modelId) {
             $modelThis = config($fileDefinition.'.options.model');
             $result = $modelThis::query()
                 ->where('model_id', $modelId)
-                ->where('model_type', $askedModel);
+                ->where('model_type', $modelType);
             $result = isset($params['sortable'])
                 ? $result->orderBy($params['sortable'], 'asc')->orderBy('id', 'desc')
                 : $result->orderBy('id', 'desc');
@@ -270,11 +270,14 @@ class ViewHandler
         $this->controller->query->clearCache();
 
         $params = (array) json_decode(request('paramsJson'));
+
+        $isMorph = isset($params['type']) && $params['type'] === 'definition_morph';
+
         $modelThis = config('builder.tb-definitions.'.$params['definition'].'.options.model');
 
         $modelThis::find(request('idDelete'))->delete();
 
-        return $this->showHtmlForeignDefinition();
+        return $isMorph ? $this->showHtmlMorphDefinition() : $this->showHtmlForeignDefinition();
     }
 
     /**
@@ -385,11 +388,16 @@ class ViewHandler
     {
         $row = view('admin::tb.single_row');
         $data['values'] = $this->controller->query->getRow($data['id']);
+        $dataArray = (array) $data['values'];
+
+        if (isset($dataArray['model_type'])) {
+            $dataArray['model_type'] = str_replace('\\', '\\\\\\\\', $dataArray['model_type']);
+        }
 
         $row->controller = $this->controller;
         $row->actions = $this->controller->actions;
         $row->def = $this->definition;
-        $row->row = (array) $data['values'];
+        $row->row = $dataArray;
 
         return $row->render();
     }

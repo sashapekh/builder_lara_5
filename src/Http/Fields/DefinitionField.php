@@ -2,7 +2,6 @@
 
 namespace Vis\Builder\Fields;
 
-use Illuminate\Support\Facades\View;
 
 /**
  * Class DefinitionField.
