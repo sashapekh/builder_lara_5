@@ -3,7 +3,6 @@
 namespace Vis\Builder\Handlers;
 
 use Illuminate\Support\Facades\Cache;
-use Illuminate\Support\Facades\View;
 
 /**
  * Class ActionsHandler.

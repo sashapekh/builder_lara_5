@@ -2,6 +2,7 @@
 
 namespace Vis\Builder;
 
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Input;
@@ -21,11 +22,12 @@ class TreeController extends Controller
      */
     public function init($node, $method)
     {
-        if (! $node->active(App::getLocale()) && ! Input::has('show')) {
+        if (!$node->active(App::getLocale()) && !Input::has('show')) {
             App::abort(404);
         }
         $this->node = $node;
 
         return $this->$method();
     }
+
 }
